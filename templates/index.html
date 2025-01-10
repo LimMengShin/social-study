@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Social Study</title>
+        <link rel="stylesheet" href="static/styles.css">
+        <script>
+            let pageNum = localStorage.getItem("pageNum") ? parseInt(localStorage.getItem("pageNum")) : 0;
+            document.addEventListener("DOMContentLoaded", function() {
+                loadQuestion();
+                setupDarkModeToggle();
+            });
+            
+            function loadQuestion() {
+                fetch("/get_question")
+                .then(response => response.json())
+                .then(data => {
+                    displayQuestion(data);
+                });
+            }
+
+            function displayQuestion(data) {
+                const questionDiv = document.getElementById("question");
+                questionDiv.innerHTML = `To continue scrolling, answer the below question correctly.<h3>${data.subject}: ${data.question}</h3>`;
+                questionDiv.innerHTML += data.options.map((option, index) =>
+                    `<button class="option-btn" onclick="checkAnswer(${index + 1}, ${data.correct})">${option}</button>`
+                ).join("");
+            }
+
+            function checkAnswer(selected, correct) {
+                if (selected == correct) {
+                    pageNum++;
+                    localStorage.setItem("pageNum", pageNum);
+                    fetch(`/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ pageNum: pageNum })
+                    });
+                    window.location.reload();
+                } else {
+                    alert("Wrong answer. Try again!")
+                    loadQuestion();
+                }
+            }
+            window.onbeforeunload = function () {
+                window.scrollTo(0, 0);
+            }
+
+            function setupDarkModeToggle() {
+                const toggle = document.getElementById("dark-mode-toggle");
+                const isDarkMode = localStorage.getItem("darkMode") === "true";
+
+                if (isDarkMode) {
+                    document.body.classList.add("dark-mode");
+                    toggle.checked = true;
+                }
+
+                toggle.addEventListener("change", () => {
+                    document.body.classList.toggle("dark-mode");
+                    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <header class="header">
+            <h1>Social Study</h1>
+            <label class="dark-mode-label">
+                <input type="checkbox" id="dark-mode-toggle">
+                Dark Mode
+            </label>
+        </header>
+        <main>
+            <section class="posts">
+                {% for post in posts %}
+                    <article class="post">
+                        <h2>{{post["title"]}}</h2>
+                        <p class="subreddit">r/{{post["subreddit"]}}</p>
+                        <p class="timestamp">Posted on: {{post["created_utc"]}}</p>
+                        <p class="votes">{{post["upvotes"]}} ⬆ | {{post["downvotes"]}} ⬇</p>
+                        <img src="{{post['image_url']}}" alt="Image for {{post['title']}}">
+                    </article>
+                {% endfor %}
+            </section>
+            <section id="question" class="quiz"></section>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2025 Social Study</p>
+        </footer>
+    </body>
+</html>

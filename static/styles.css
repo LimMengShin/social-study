@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ddd;
+}
+
+header {
+    background-color: #4caf50;
+    color: white;
+    padding: 0px 15px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .dark-mode-label {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 1em;
+}
+
+header .dark-mode-label input {
+    margin-left: 10px;
+}
+
+body.dark-mode header {
+    background-color: #333;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    bottom: 0;
+}
+
+body.dark-mode footer {
+    background-color: #1a1a1a;
+}
+
+main {
+    padding: 20px;
+}
+
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.post {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 60vw;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.post img {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.dark-mode .post {
+    background: #1e1e1e;
+    border: 1px solid #555;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+.subreddit {
+    font-weight: bold;
+    color: #555;
+}
+
+body.dark-mode .subreddit {
+    color: #bbb;
+}
+
+.timestamp, .votes {
+    font-size: 1em;
+    color: #777;
+}
+
+body.dark-mode .timestamp, body.dark-mode .votes {
+    color: #aaa;
+}
+
+.quiz {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s;
+}
+
+.quiz h3 {
+    margin-bottom: 20px;
+}
+
+body.dark-mode .quiz {
+    background-color: #1e1e1e;
+    color: #ddd;
+}
+
+.option-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.option-btn:hover {
+    background-color: #45a049;
+}
+
+body.dark-mode .option-btn {
+    background-color: #2e7d32;
+    color: #ddd;
+}
+
+body.dark-mode .option-btn:hover {
+    background-color: #388e3c;
+}
