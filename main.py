@@ -18,7 +18,8 @@ cursor = connection.cursor()
 
 for submission in reddit.front.hot():
     url = submission.url
-    if ".png" in url[-5:] or ".jpeg" in url[-5:] or ".gif" in url[-5:]:
+    url_end = url[-5:]
+    if ".png" in url_end or ".jpeg" in url_end or ".gif" in url_end:
         upvotes = round(submission.upvote_ratio * submission.score / (2 * submission.upvote_ratio - 1))
         downvotes = upvotes - submission.score
         insert_query = """
@@ -30,6 +31,13 @@ for submission in reddit.front.hot():
             cursor.execute(insert_query, values)
         except sqlite3.IntegrityError:
             pass
+
+delete_query = """
+DELETE FROM posts
+WHERE created_utc <= strftime('%s', 'now') - (2 * 24 * 60 * 60);
+"""
+
+cursor.execute(delete_query)
 
 connection.commit()
 connection.close()
