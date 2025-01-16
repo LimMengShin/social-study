@@ -153,3 +153,94 @@ body.dark-mode .option-btn {
 body.dark-mode .option-btn:hover {
     background-color: #388e3c;
 }
+
+#dark-mode-toggle {
+    background-color: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#dark-mode-toggle:hover {
+    background-color: #1e40af;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Switch styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2563eb;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Sun and Moon Emojis */
+.emoji {
+    font-size: 1.5rem;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+#sun, #sun2 {
+    opacity: 1;
+}
+
+#moon, #moon2 {
+    opacity: 0;
+}
+
+.dark-mode #sun, .dark-mode #sun2 {
+    opacity: 0;
+}
+
+.dark-mode #moon, .dark-mode #moon2 {
+    opacity: 1;
+}
