@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Social Study</title>
+        <link rel="stylesheet" href="static/styles.css">
+    </head>
+
+    <body>
+        <header class="header">
+            <a href="/" class="back round">&#8249; Back</a>
+            <h1>Questions</h1>
+            <div class="toggle-container">
+                <span id="sun" class="emoji">☀️</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle" checked>
+                    <span class="slider"></span>
+                </label>
+                <span id="moon" class="emoji">🌙</span>
+            </div>
+        </header>
+        <main>
+            {% for questions in questions_list %}
+            <h1>{{questions[0]}}</h1>
+            <section class="questions">
+                {% for question in questions[1] %}
+                <article class="question">
+                    <p>{{question["question"]}}</p>
+                    <ol>
+                        <li>{{question["options"][0]}}</li>
+                        <li>{{question["options"][1]}}</li>
+                        <li>{{question["options"][2]}}</li>
+                        <li>{{question["options"][3]}}</li>
+                    </ol>
+                </article>
+                {% endfor %}
+            </section>
+            {% endfor %}
+        </main>
+        <footer class="footer">
+            <p>&copy; 2025 Social Study</p>
+        </footer>
+        <script>
+            const toggleSwitch = document.getElementById("toggle");
+            const body = document.body;
+
+            // Check if the user has a stored preference for dark mode
+            if (localStorage.getItem("darkMode") === "enabled") {
+                toggleSwitch.checked = true;
+                body.classList.add("dark-mode");
+            } else if (localStorage.getItem("darkMode") === "disabled") {
+                toggleSwitch.checked = false;
+                body.classList.remove("dark-mode");
+            } else {
+                const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                if (prefersDarkScheme) {
+                    toggleSwitch.checked = true;
+                    body.classList.add("dark-mode");
+                } else {
+                    toggleSwitch.checked = false;
+                    body.classList.remove("dark-mode");
+                }
+            }
+
+            toggleSwitch.addEventListener('change', () => {
+                if (toggleSwitch.checked) {
+                    body.classList.add("dark-mode");
+                    localStorage.setItem("darkMode", "enabled");
+                } else {
+                    body.classList.remove("dark-mode");
+                    localStorage.setItem("darkMode", "disabled");
+                }
+            });
+        </script>
+    </body>
+</html>

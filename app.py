@@ -52,6 +52,25 @@ def index():
     posts = posts_list[page_num % len(posts_list)]
     return render_template("index.html", posts=posts)
 
+@app.route("/questions")
+def questions():
+    questions = query_db("SELECT * FROM questions;")
+    questions = [dict(question) for question in questions]
+    questions_dict = {}
+    for question in questions:
+        subject = question["subject"]
+        question_dict = {"subject": question["subject"], "question": question["question"], "options": [question["option1"], question["option2"], question["option3"], question["option4"]], "correct": question["correct_option"]}
+        if subject not in questions_dict:
+            questions_dict[subject] = []
+        questions_dict[subject].append(question_dict)
+    questions_list = list(questions_dict.items())
+    print(questions_list)
+    return render_template("questions.html", questions_list=questions_list)
+
+@app.route("/add_questions")
+def add_questions():
+    pass
+
 @app.route("/get_question")
 def get_question():
     questions = query_db("SELECT * FROM questions;")
@@ -60,3 +79,6 @@ def get_question():
     question = questions[idx]
     question_dict = {"subject": question["subject"], "question": question["question"], "options": [question["option1"], question["option2"], question["option3"], question["option4"]], "correct": question["correct_option"]}
     return jsonify(question_dict)
+
+if __name__ == "__main__":
+    app.run(debug=True)
