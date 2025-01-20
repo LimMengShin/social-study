@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Social Study</title>
+        <link rel="stylesheet" href="static/styles.css">
+    </head>
+
+    <body>
+        <header class="header">
+            <a href="/" class="back round">&#8249; Back</a>
+            <h1>Add Question</h1>
+            <div class="toggle-container">
+                <span id="sun" class="emoji">☀️</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle" checked>
+                    <span class="slider"></span>
+                </label>
+                <span id="moon" class="emoji">🌙</span>
+            </div>
+        </header>
+        <main>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.subject.label }} {{ form.subject() }}
+                {{ form.question.label }} {{ form.question() }}
+                {{ form.option1.label }} {{ form.option1() }}
+                {{ form.option2.label }} {{ form.option2() }}
+                {{ form.option3.label }} {{ form.option3() }}
+                {{ form.option4.label }} {{ form.option4() }}
+                {{ form.correct_option.label }}
+                <div class="radios">
+                    {% for subfield in form.correct_option %}
+                        <tr>
+                            <td>{{ subfield() }}</td>
+                            <td>{{ subfield.label }}</td>
+                        </tr>
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Add Question">
+                {% for text in get_flashed_messages() %}
+                    <div class="alert" role="alert">
+                        {{text}}
+                    </div>
+                {% endfor %}
+            </form>
+        </main>
+        <footer class="footer">
+            <p>&copy; 2025 Social Study</p>
+        </footer>
+        <script>
+            const toggleSwitch = document.getElementById("toggle");
+            const body = document.body;
+
+            // Check if the user has a stored preference for dark mode
+            if (localStorage.getItem("darkMode") === "enabled") {
+                toggleSwitch.checked = true;
+                body.classList.add("dark-mode");
+            } else if (localStorage.getItem("darkMode") === "disabled") {
+                toggleSwitch.checked = false;
+                body.classList.remove("dark-mode");
+            } else {
+                const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                if (prefersDarkScheme) {
+                    toggleSwitch.checked = true;
+                    body.classList.add("dark-mode");
+                } else {
+                    toggleSwitch.checked = false;
+                    body.classList.remove("dark-mode");
+                }
+            }
+
+            toggleSwitch.addEventListener('change', () => {
+                if (toggleSwitch.checked) {
+                    body.classList.add("dark-mode");
+                    localStorage.setItem("darkMode", "enabled");
+                } else {
+                    body.classList.remove("dark-mode");
+                    localStorage.setItem("darkMode", "disabled");
+                }
+            });
+        </script>
+    </body>
+</html>
