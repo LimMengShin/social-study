@@ -10,7 +10,6 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "secretkey"
 
 database = "database.db"
-page_num = 0
 
 class AddQuestionForm(FlaskForm):
     subject = SelectField("Subject", choices=["Computing", "Math", "Physics", "Chemistry", "Economics", "English"], validators=[DataRequired()])
@@ -54,11 +53,12 @@ def split_list(lst, n):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    global page_num
-    if request.method == "POST":
-        page_num = request.json.get('pageNum', page_num)
-        print(page_num)
-        return redirect("/")
+    return render_template("index.html")
+
+@app.route("/get_posts", methods=["POST"])
+def get_posts():
+    page_num = request.json.get('pageNum', 0)
+    print(page_num)
     posts = query_db("SELECT * FROM posts ORDER BY created_utc DESC;")
     posts = [
         {
@@ -69,7 +69,7 @@ def index():
     ]
     posts_list = split_list(posts, 5)
     posts = posts_list[page_num % len(posts_list)]
-    return render_template("index.html", posts=posts)
+    return jsonify(posts)
 
 @app.route("/questions")
 def questions():
