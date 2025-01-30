@@ -25,17 +25,14 @@ Reduce eye strain with a dark mode option for a more comfortable studying and br
 
 ## Future Improvements
 
-1. **Expand Subject Coverage**
+### 1. **Expand Subject Coverage**
+Broaden the variety of questions by adding topics such as Biology, History, and more.
 
-   Broaden the variety of questions by adding topics such as Biology, History, and more.
+### 2. **Spaced Repetition**
+Implement a system that revisits questions periodically based on user performance to enhance learning retention.
 
-2. **Spaced Repetition**
-
-   Implement a system that revisits questions periodically based on user performance to enhance learning retention.
-
-3. **Text-Based Input**
-
-   Allow freeform text responses, with AI evaluating correctness and providing constructive feedback.
+### 3. **Text-Based Input**
+Allow freeform text responses, with AI evaluating correctness and providing constructive feedback.
 
 ## Demo
 
