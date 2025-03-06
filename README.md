@@ -36,7 +36,7 @@ Allow freeform text responses, with AI evaluating correctness and providing cons
 
 ## Demo
 
-Check out the live demo: [Social Study Demo](https://study.mengshin.me)
+Check out the live demo: [Social Study Demo](https://study.mengshin.dev)
 
 ## Running the Website
 
